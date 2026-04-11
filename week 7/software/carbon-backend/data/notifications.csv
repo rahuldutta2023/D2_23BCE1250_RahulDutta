@@ -1,0 +1,9 @@
+notification_id,user_id,type,title,message,severity,is_read,created_at
+1,10,badge_earned,🏅 Badge Unlocked: 🌱 Eco Beginner,Logged your first consumption entry,success,False,2026-04-10T16:42:16.484729
+2,10,badge_earned,🏅 Badge Unlocked: 🌍 Green Champion,All KPIs within budget for a month,success,False,2026-04-10T16:42:16.490408
+3,10,badge_earned,🏅 Badge Unlocked: ✂️ Carbon Cutter,Reduced total emissions month-over-month,success,False,2026-04-10T16:42:16.496740
+4,10,badge_earned,🏅 Badge Unlocked: 🏆 Eco Elite,Earned 500+ eco-points,success,False,2026-04-10T16:42:16.502088
+5,10,badge_earned,🏅 Badge Unlocked: ⭐ Community Star,Ranked top 25 in your city leaderboard,success,False,2026-04-10T16:42:16.505034
+6,10,badge_earned,🏅 Badge Unlocked: 📊 Data Logger,Logged data for 3+ consecutive months,success,False,2026-04-10T16:42:16.512394
+7,10,badge_earned,🏅 Badge Unlocked: 💧 Water Saver,Water emissions within baseline,success,False,2026-04-10T16:42:16.515605
+8,10,badge_earned,🏅 Badge Unlocked: 🔋 Energy Guardian,Electricity emissions within baseline,success,False,2026-04-10T16:42:16.519624

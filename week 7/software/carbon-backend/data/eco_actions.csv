@@ -1,0 +1,11 @@
+action_id,title,points,category,description
+1,Switched to LED bulbs,50,Energy,Replace incandescent bulbs with LEDs to cut lighting energy use by 75%.
+2,Installed a low-flow showerhead,100,Water,Reduces water use by 30-50% per shower without affecting pressure.
+3,Started composting,150,Waste,Composting food scraps reduces landfill methane emissions significantly.
+4,Installed solar water heater,200,Energy,Solar water heating can offset 60-80% of water heating energy needs.
+5,Switched to public transport,120,Transport,Regular public transport use reduces per-person CO2 by up to 2.5 tonnes/year.
+6,Planted a tree,100,Nature,Each tree absorbs ~22 kg CO2 per year over its lifetime.
+7,Reduced meat consumption (1 week),80,Food,Plant-based meals have 50-70% lower carbon footprint than meat-based ones.
+8,Fixed all water leaks at home,60,Water,"A dripping tap wastes ~3,000 litres per year."
+9,Carpooled for a month,90,Transport,Sharing a car ride halves per-person fuel consumption and emissions.
+10,Switched to e-billing,30,Digital,Paperless billing saves trees and eliminates postal transport emissions.

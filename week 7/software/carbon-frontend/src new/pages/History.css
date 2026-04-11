@@ -1,0 +1,104 @@
+.hist-page { min-height: 100vh; background: var(--bg-page); padding-bottom: 80px; transition: background 0.2s; }
+.hist-page.dark { background: #0d0d0d; color: #eee; }
+
+.hist-inner { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+.hist-title    { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; }
+.hist-page.dark .hist-title { color: #eee; }
+.hist-subtitle { font-size: 0.78rem; color: #999; margin-top: 0.15rem; margin-bottom: 1.25rem; }
+
+/* Best/worst callout */
+.hist-callout-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 1rem; }
+.hist-callout {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 1rem;
+  transition: background 0.2s;
+}
+.hist-callout.best  { border-left: 3px solid #22c55e; }
+.hist-callout.worst { border-left: 3px solid #ef4444; }
+.hist-page.dark .hist-callout { background: #1a1a1a; border-color: #2a2a2a; }
+
+.hist-callout-label  { font-size: 0.68rem; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 0.05em; }
+.hist-callout-period { font-size: 0.78rem; color: #666; margin-top: 0.15rem; }
+.hist-callout-value  { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; margin-top: 0.1rem; }
+.hist-page.dark .hist-callout-value { color: #ddd; }
+
+/* View toggle */
+.hist-view-toggle { display: flex; gap: 0.4rem; margin-bottom: 0.75rem; }
+.hist-view-btn {
+  padding: 0.38rem 0.9rem;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  background: #fff;
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.hist-view-btn.active { background: var(--text-dark); color: #fff; border-color: var(--text-dark); }
+.hist-page.dark .hist-view-btn { background: #1a1a1a; border-color: #2a2a2a; color: #555; }
+.hist-page.dark .hist-view-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+/* Chart card */
+.hist-chart-card {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  margin-bottom: 0.75rem;
+  transition: background 0.2s;
+}
+.hist-page.dark .hist-chart-card { background: #1a1a1a; border-color: #2a2a2a; }
+
+.hist-chart-title { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #999; margin-bottom: 1rem; }
+
+/* Delta row */
+.hist-delta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 1rem; }
+.hist-delta-item { background: #fafaf8; border-radius: 8px; padding: 0.6rem; text-align: center; }
+.hist-page.dark .hist-delta-item { background: #111; }
+.hist-delta-cat { font-size: 0.68rem; color: #999; display: block; margin-bottom: 0.2rem; }
+.hist-delta-val { font-size: 0.88rem; font-weight: 700; }
+
+/* Detail cards */
+.hist-card {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  margin-bottom: 0.55rem;
+  transition: background 0.2s, box-shadow 0.15s;
+}
+.hist-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+.hist-page.dark .hist-card { background: #1a1a1a; border-color: #2a2a2a; }
+
+.hist-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+.hist-period    { font-weight: 700; font-size: 0.95rem; }
+.hist-total-val { font-weight: 700; font-size: 0.95rem; color: #666; }
+.hist-page.dark .hist-period    { color: #ddd; }
+.hist-page.dark .hist-total-val { color: #555; }
+
+.hist-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.82rem;
+}
+.hist-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.hist-key { width: 76px; flex-shrink: 0; color: #666; font-weight: 500; }
+
+.hist-row-bar-track { flex: 1; height: 5px; background: #f0f0ec; border-radius: 10px; overflow: hidden; }
+.hist-row-bar-fill  { height: 100%; border-radius: 10px; transition: width 0.4s ease; }
+
+.hist-val { width: 80px; text-align: right; font-weight: 600; font-size: 0.78rem; color: #555; flex-shrink: 0; }
+.hist-page.dark .hist-val { color: #666; }
+.hist-page.dark .hist-key { color: #555; }

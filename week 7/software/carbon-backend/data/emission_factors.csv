@@ -1,0 +1,8 @@
+resource_type,unit,co2_per_unit,factor_id,last_updated
+Electricity,kWh,0.82,1,2026-02-10
+LPG,kg,2.98,2,2026-02-10
+PNG,kg,2.2,3,2026-02-10
+Petrol,liter,2.31,4,2026-02-10
+Diesel,liter,2.68,5,2026-02-10
+CNG,kg,2.75,6,2026-02-10
+Water,liter,0.0003,7,2026-02-10

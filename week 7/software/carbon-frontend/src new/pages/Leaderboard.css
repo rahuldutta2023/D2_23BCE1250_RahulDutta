@@ -1,0 +1,119 @@
+/* ─── Leaderboard.css ─── */
+
+.lb-page {
+  min-height: 100vh;
+  background: var(--bg-page);
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 80px;
+}
+
+/* ─── Header ─── */
+.lb-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.lb-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.lb-subtitle {
+  font-size: 0.78rem;
+  color: #999;
+  margin-top: 0.15rem;
+}
+
+/* ─── City filter ─── */
+.lb-select {
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 0.38rem 0.75rem;
+  font-size: 0.8rem;
+  font-family: var(--font);
+  background: #fff;
+  color: var(--text-dark);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.lb-select:focus { border-color: var(--text-dark); }
+
+/* ─── Entry row ─── */
+.lb-entry {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  margin-bottom: 0.45rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.lb-entry:hover {
+  border-color: #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Top 3 get a left accent stripe */
+.lb-entry.top {
+  border-left: 3px solid var(--accent);
+}
+
+/* ─── Rank badge ─── */
+.lb-rank {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #999;
+  flex-shrink: 0;
+}
+
+.lb-rank.medal { font-size: 1.25rem; }
+
+/* ─── Name / city ─── */
+.lb-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-dark);
+}
+
+.lb-city {
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-top: 0.1rem;
+}
+
+/* ─── Score ─── */
+.lb-score {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-dark);
+}
+
+.lb-score-label {
+  font-size: 0.65rem;
+  color: #aaa;
+  text-align: right;
+}
+
+.lb-page.dark { background: #0d0d0d; }
+.lb-page.dark .lb-title    { color: #eee; }
+.lb-page.dark .lb-subtitle { color: #555; }
+.lb-page.dark .lb-entry    { background: #1a1a1a; border-color: #2a2a2a; }
+.lb-page.dark .lb-name     { color: #ddd; }
+.lb-page.dark .lb-city     { color: #555; }
+.lb-page.dark .lb-score    { color: #eee; }
+.lb-entry.me { border-left: 3px solid var(--accent); }
