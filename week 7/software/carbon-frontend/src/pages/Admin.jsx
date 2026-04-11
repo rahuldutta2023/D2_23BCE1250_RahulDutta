@@ -10,7 +10,7 @@ function apiFetch(path) {
 
 const COLORS = ["#c8ff00", "#22c55e", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899", "#14b8a6"];
 
-export default function Admin({ darkMode }) {
+export default function Admin() {
   const [stats,   setStats]   = useState(null);
   const [users,   setUsers]   = useState([]);
   const [tab,     setTab]     = useState("overview");
@@ -26,15 +26,15 @@ export default function Admin({ darkMode }) {
       .catch(e => { setError(e.message); setLoading(false); });
   }, []);
 
-  if (loading) return <div className={`admin-page${darkMode ? " dark" : ""}`}><div className="c-loading">⚙️ Loading admin panel…</div></div>;
+  if (loading) return <div className="admin-page"><div className="c-loading">⚙️ Loading admin panel…</div></div>;
 
   if (error) return (
-    <div className={`admin-page${darkMode ? " dark" : ""}`}>
+    <div className="admin-page">
       <div className="admin-inner">
         <div className="admin-error">
           <p style={{ fontSize: "2rem" }}>🔒</p>
           <p>Admin access required</p>
-          <p style={{ fontSize: "0.78rem", color: "#bbb", marginTop: "0.3rem" }}>
+          <p style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.35)", marginTop: "0.3rem" }}>
             Ask a current admin to grant you admin role.
           </p>
         </div>
@@ -59,7 +59,7 @@ export default function Admin({ darkMode }) {
   ];
 
   return (
-    <div className={`admin-page${darkMode ? " dark" : ""}`}>
+    <div className="admin-page">
       <div className="admin-inner">
         <h1 className="admin-title">⚙️ Admin Dashboard</h1>
         <p className="admin-sub">System-wide analytics and user management</p>
@@ -98,9 +98,9 @@ export default function Admin({ darkMode }) {
                 <p className="admin-section-title">System-wide Monthly CO₂ (kg)</p>
                 <ResponsiveContainer width="100%" height={240}>
                   <BarChart data={monthlyData}>
-                    <XAxis dataKey="period" tick={{ fontSize: 11 }} />
-                    <YAxis tick={{ fontSize: 11 }} unit=" kg" />
-                    <Tooltip formatter={v => [`${v} kg`, "Total CO₂"]} />
+                    <XAxis dataKey="period" tick={{ fontSize: 11, fill: "rgba(255,255,255,0.45)" }} />
+                    <YAxis tick={{ fontSize: 11, fill: "rgba(255,255,255,0.45)" }} unit=" kg" />
+                    <Tooltip formatter={v => [`${v} kg`, "Total CO₂"]} contentStyle={{ borderRadius: 12, fontSize: 12, background: "rgba(14,40,18,0.92)", border: "1px solid rgba(255,255,255,0.15)", color: "#fff" }} />
                     <Bar dataKey="co2" radius={[6, 6, 0, 0]}>
                       {monthlyData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                     </Bar>
@@ -114,9 +114,9 @@ export default function Admin({ darkMode }) {
                 <p className="admin-section-title">CO₂ by Resource Type</p>
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={resourceData} layout="vertical">
-                    <XAxis type="number" tick={{ fontSize: 11 }} unit=" kg" />
-                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={80} />
-                    <Tooltip formatter={v => [`${v} kg`, "CO₂"]} />
+                    <XAxis type="number" tick={{ fontSize: 11, fill: "rgba(255,255,255,0.45)" }} unit=" kg" />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11, fill: "rgba(255,255,255,0.45)" }} width={80} />
+                    <Tooltip formatter={v => [`${v} kg`, "CO₂"]} contentStyle={{ borderRadius: 12, fontSize: 12, background: "rgba(14,40,18,0.92)", border: "1px solid rgba(255,255,255,0.15)", color: "#fff" }} />
                     <Bar dataKey="co2" radius={[0, 6, 6, 0]}>
                       {resourceData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                     </Bar>

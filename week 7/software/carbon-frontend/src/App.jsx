@@ -7,11 +7,12 @@ import History      from "./pages/History";
 import Predictions  from "./pages/Predictions";
 import Notifications from "./pages/Notifications";
 import Admin        from "./pages/Admin";
+import { useLang, LANGUAGES } from "./i18n";
 import './Dashboard.css';
 
 export default function App() {
-  const [page,     setPage]     = useState(localStorage.getItem("token") ? "dashboard" : "login");
-  const [darkMode, setDarkMode] = useState(false);
+  const [page, setPage] = useState(localStorage.getItem("token") ? "dashboard" : "login");
+  const { lang, changeLang, t } = useLang();
 
   const handleLogin    = () => setPage("dashboard");
   const handleRegister = () => setPage("login");
@@ -23,37 +24,38 @@ export default function App() {
   const isAdmin = localStorage.getItem("role") === "admin";
 
   const tabs = [
-    { id: "dashboard",     label: "Home",          icon: "🏠" },
-    { id: "history",       label: "History",       icon: "📈" },
-    { id: "predictions",   label: "Predict",       icon: "🔮" },
-    { id: "leaderboard",   label: "Ranks",         icon: "🏅" },
-    { id: "notifications", label: "Alerts",        icon: "🔔" },
-    ...(isAdmin ? [{ id: "admin", label: "Admin", icon: "⚙️" }] : []),
+    { id: "dashboard",     label: t("home"),    icon: "🏠" },
+    { id: "history",       label: t("history"), icon: "📈" },
+    { id: "predictions",   label: t("predict"), icon: "🔮" },
+    { id: "leaderboard",   label: t("ranks"),   icon: "🏅" },
+    { id: "notifications", label: t("alerts"),  icon: "🔔" },
+    ...(isAdmin ? [{ id: "admin", label: t("admin"), icon: "⚙️" }] : []),
   ];
 
   return (
-    <div className={darkMode ? "global-dark" : ""}>
-      {page === "dashboard"     && <Dashboard    onNavigate={setPage} darkMode={darkMode} setDarkMode={setDarkMode} />}
-      {page === "history"       && <History      darkMode={darkMode} />}
-      {page === "predictions"   && <Predictions  darkMode={darkMode} />}
-      {page === "leaderboard"   && <Leaderboard  darkMode={darkMode} />}
-      {page === "notifications" && <Notifications darkMode={darkMode} />}
-      {page === "admin"         && <Admin        darkMode={darkMode} />}
+    <div>
+      {page === "dashboard"     && <Dashboard    onNavigate={setPage} />}
+      {page === "history"       && <History      />}
+      {page === "predictions"   && <Predictions  />}
+      {page === "leaderboard"   && <Leaderboard  />}
+      {page === "notifications" && <Notifications />}
+      {page === "admin"         && <Admin        />}
 
-      <nav className={`c-bottom-nav${darkMode ? " dark" : ""}`}>
-        {tabs.map(t => (
+      <nav className="c-bottom-nav">
+        {tabs.map(tab => (
           <button
-            key={t.id}
-            onClick={() => setPage(t.id)}
-            className={`c-nav-item ${page === t.id ? "active" : ""}`}
+            key={tab.id}
+            id={`nav-${tab.id}`}
+            onClick={() => setPage(tab.id)}
+            className={`c-nav-item ${page === tab.id ? "active" : ""}`}
           >
-            <span className="c-nav-icon">{t.icon}</span>
-            {t.label}
+            <span className="c-nav-icon">{tab.icon}</span>
+            {tab.label}
           </button>
         ))}
-        <button onClick={handleLogout} className="c-nav-item">
+        <button id="nav-logout" onClick={handleLogout} className="c-nav-item">
           <span className="c-nav-icon">🚪</span>
-          Logout
+          {t("logout")}
         </button>
       </nav>
     </div>

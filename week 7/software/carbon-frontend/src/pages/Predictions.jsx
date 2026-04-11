@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import {
   ComposedChart, Line, Bar, XAxis, YAxis, Tooltip,
-  ResponsiveContainer, ReferenceLine, CartesianGrid, Legend,
+  ResponsiveContainer, CartesianGrid, Legend,
 } from "recharts";
+import { useLang } from "../i18n";
 import "./Predictions.css";
 
 const API = "http://localhost:8000/api";
@@ -13,16 +14,17 @@ function apiFetch(path) {
 }
 
 const TREND_CONFIG = {
-  increasing: { icon: "📈", label: "Increasing",  color: "#ef4444", bg: "#fef2f2" },
-  decreasing: { icon: "📉", label: "Decreasing",  color: "#22c55e", bg: "#f0fdf4" },
-  stable:     { icon: "➡️", label: "Stable",      color: "#f59e0b", bg: "#fffbeb" },
-  insufficient_data: { icon: "📊", label: "Not enough data", color: "#6b7280", bg: "#f9fafb" },
+  increasing:        { icon: "📈", label: "Increasing",     color: "#ef4444", bg: "rgba(239,68,68,0.18)" },
+  decreasing:        { icon: "📉", label: "Decreasing",     color: "#a8d55e", bg: "rgba(168,213,94,0.18)" },
+  stable:            { icon: "➡️", label: "Stable",         color: "#f59e0b", bg: "rgba(245,158,11,0.18)" },
+  insufficient_data: { icon: "📊", label: "Not enough data", color: "#9ca3af", bg: "rgba(156,163,175,0.15)" },
 };
 
 const RESOURCE_LABELS = { electricity: "Electricity ⚡", gas: "Gas 🔥", fuel: "Fuel 🚗", water: "Water 💧" };
-const RESOURCE_COLORS = { electricity: "#f59e0b", gas:  "#ef4444", fuel: "#8b5cf6", water: "#3b82f6" };
+const RESOURCE_COLORS = { electricity: "#f59e0b", gas: "#ef4444", fuel: "#8b5cf6", water: "#3b82f6" };
 
-export default function Predictions({ darkMode }) {
+export default function Predictions() {
+  const { t } = useLang();
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -33,12 +35,11 @@ export default function Predictions({ darkMode }) {
       .catch(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className={`pred-page${darkMode ? " dark" : ""}`}><div className="c-loading">🔮 Crunching predictions…</div></div>;
-  if (!data)   return <div className={`pred-page${darkMode ? " dark" : ""}`}><div className="c-loading">Failed to load predictions.</div></div>;
+  if (loading) return <div className="pred-page"><div className="c-loading">🔮 {t("emissionPredictions")}…</div></div>;
+  if (!data)   return <div className="pred-page"><div className="c-loading">Failed to load predictions.</div></div>;
 
   const trendCfg = TREND_CONFIG[data.trend] || TREND_CONFIG.stable;
 
-  // Build chart data — history + predicted point
   const chartData = (data.history || []).map(h => ({
     period:    h.period,
     actual:    +(+h.total_co2).toFixed(2),
@@ -60,8 +61,8 @@ export default function Predictions({ darkMode }) {
     if (!payload.isPred) return null;
     return (
       <g>
-        <circle cx={cx} cy={cy} r={8} fill="#c8ff00" stroke="#111" strokeWidth={2} />
-        <text x={cx} y={cy - 14} textAnchor="middle" fontSize={10} fill="#666">predicted</text>
+        <circle cx={cx} cy={cy} r={9} fill="var(--accent)" stroke="rgba(255,255,255,0.5)" strokeWidth={2} />
+        <text x={cx} y={cy - 16} textAnchor="middle" fontSize={10} fill="rgba(255,255,255,0.65)">predicted</text>
       </g>
     );
   };
@@ -69,15 +70,15 @@ export default function Predictions({ darkMode }) {
   const confidence = { high: "🟢 High", medium: "🟡 Medium", low: "🔴 Low" }[data.confidence] || "—";
 
   return (
-    <div className={`pred-page${darkMode ? " dark" : ""}`}>
+    <div className="pred-page">
       <div className="pred-inner">
-        <h1 className="pred-title">🔮 Emission Predictions</h1>
-        <p className="pred-sub">Linear regression on your monthly data</p>
+        <h1 className="pred-title">🔮 {t("emissionPredictions")}</h1>
+        <p className="pred-sub">{t("predSubtitle")}</p>
 
-        {/* Main prediction card */}
-        <div className="pred-hero" style={{ borderColor: trendCfg.color }}>
+        {/* Hero card */}
+        <div className="pred-hero" style={{ borderColor: trendCfg.color + "55" }}>
           <div className="pred-hero-left">
-            <p className="pred-hero-label">Predicted for {data.next_period}</p>
+            <p className="pred-hero-label">{t("predictedFor")} {data.next_period}</p>
             <p className="pred-hero-value">
               {data.predicted_co2 !== null ? `${data.predicted_co2} kg` : "—"}
             </p>
@@ -85,15 +86,15 @@ export default function Predictions({ darkMode }) {
           </div>
           <div className="pred-hero-right">
             <div className="pred-trend-badge" style={{ background: trendCfg.bg, color: trendCfg.color }}>
-              <span style={{ fontSize: "1.5rem" }}>{trendCfg.icon}</span>
+              <span style={{ fontSize: "1.4rem" }}>{trendCfg.icon}</span>
               <span>{trendCfg.label}</span>
               {data.pct_change !== 0 && (
                 <span className="pred-pct">{data.pct_change > 0 ? "+" : ""}{data.pct_change}%</span>
               )}
             </div>
-            <p className="pred-confidence">Confidence: {confidence}</p>
+            <p className="pred-confidence">{t("confidence")}: {confidence}</p>
             {data.weekly_avg !== null && (
-              <p className="pred-weekly">Weekly avg this month: <strong>{data.weekly_avg} kg</strong></p>
+              <p className="pred-weekly">{t("weeklyAvg")}: <strong>{data.weekly_avg} kg</strong></p>
             )}
           </div>
         </div>
@@ -101,21 +102,30 @@ export default function Predictions({ darkMode }) {
         {/* Chart */}
         {chartData.length > 0 && (
           <div className="pred-chart-card">
-            <p className="pred-section-title">Historical + Predicted Trend</p>
+            <p className="pred-section-title">{t("historicalTrend")}</p>
             <ResponsiveContainer width="100%" height={280}>
               <ComposedChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? "#2a2a2a" : "#f0f0f0"} />
-                <XAxis dataKey="period" tick={{ fontSize: 11, fill: darkMode ? "#666" : "#999" }} />
-                <YAxis tick={{ fontSize: 11, fill: darkMode ? "#666" : "#999" }} unit=" kg" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.07)" />
+                <XAxis dataKey="period" tick={{ fontSize: 11, fill: "rgba(255,255,255,0.45)" }} />
+                <YAxis tick={{ fontSize: 11, fill: "rgba(255,255,255,0.45)" }} unit=" kg" />
                 <Tooltip
                   formatter={(v, name) => [`${v} kg`, name === "actual" ? "Actual CO₂" : "Predicted CO₂"]}
-                  contentStyle={{ borderRadius: 10, border: "1px solid #e5e5e0", fontSize: 12 }}
+                  contentStyle={{
+                    borderRadius: 12,
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    background: "rgba(14,40,18,0.92)",
+                    fontSize: 12,
+                    color: "#fff",
+                    backdropFilter: "blur(12px)",
+                  }}
                 />
-                <Legend formatter={v => v === "actual" ? "Actual CO₂" : "Predicted CO₂"} />
-                <Bar dataKey="actual" fill={darkMode ? "#333" : "#e5e5e0"} radius={[4, 4, 0, 0]} name="actual" />
+                <Legend
+                  formatter={v => <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 12 }}>{v === "actual" ? "Actual CO₂" : "Predicted CO₂"}</span>}
+                />
+                <Bar dataKey="actual" fill="rgba(74,156,47,0.45)" radius={[5, 5, 0, 0]} name="actual" />
                 <Line
-                  type="monotone" dataKey="predicted" stroke="#c8ff00"
-                  strokeWidth={2} strokeDasharray="6 3"
+                  type="monotone" dataKey="predicted" stroke="var(--accent)"
+                  strokeWidth={2.5} strokeDasharray="6 3"
                   dot={<CustomDot />} name="predicted"
                   connectNulls={false}
                 />
@@ -127,13 +137,13 @@ export default function Predictions({ darkMode }) {
         {/* Per-resource predictions */}
         {data.resource_predictions && Object.keys(data.resource_predictions).length > 0 && (
           <div className="pred-resources">
-            <p className="pred-section-title">Resource-wise Forecast</p>
+            <p className="pred-section-title">{t("resourceForecast")}</p>
             <div className="pred-resource-grid">
               {Object.entries(data.resource_predictions).map(([key, info]) => (
                 <div key={key} className="pred-resource-card" style={{ borderLeft: `3px solid ${RESOURCE_COLORS[key] || "#ccc"}` }}>
                   <p className="pred-resource-label">{RESOURCE_LABELS[key] || key}</p>
                   <p className="pred-resource-value">{info.predicted} kg</p>
-                  <p className="pred-resource-trend" style={{ color: info.trend === "up" ? "#ef4444" : info.trend === "down" ? "#22c55e" : "#f59e0b" }}>
+                  <p className="pred-resource-trend" style={{ color: info.trend === "up" ? "#ef4444" : info.trend === "down" ? "#a8d55e" : "#f59e0b" }}>
                     {info.trend === "up" ? "↑ Rising" : info.trend === "down" ? "↓ Falling" : "→ Stable"}
                   </p>
                 </div>
@@ -144,7 +154,7 @@ export default function Predictions({ darkMode }) {
 
         {data.trend === "insufficient_data" && (
           <div className="pred-empty">
-            <p>📊 Log consumption data for at least 2 months to unlock predictions.</p>
+            📊 {t("notEnoughData")}
           </div>
         )}
       </div>

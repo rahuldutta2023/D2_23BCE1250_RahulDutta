@@ -1,119 +1,91 @@
-/* ─── Leaderboard.css ─── */
-
 .lb-page {
   min-height: 100vh;
-  background: var(--bg-page);
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 1.25rem 1rem 80px;
+  padding-bottom: 80px;
 }
 
-/* ─── Header ─── */
 .lb-header {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .lb-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.04em;
 }
-
 .lb-subtitle {
   font-size: 0.78rem;
-  color: #999;
+  color: var(--forest-lime);
   margin-top: 0.15rem;
+  opacity: 0.85;
 }
 
-/* ─── City filter ─── */
 .lb-select {
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  padding: 0.38rem 0.75rem;
-  font-size: 0.8rem;
+  background: rgba(13,31,14,0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.82rem;
   font-family: var(--font);
-  background: #fff;
-  color: var(--text-dark);
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-
-.lb-select:focus { border-color: var(--text-dark); }
-
-/* ─── Entry row ─── */
-.lb-entry {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.85rem 1rem;
-  background: #fff;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius);
-  margin-bottom: 0.45rem;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.lb-entry:hover {
-  border-color: #ccc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* Top 3 get a left accent stripe */
-.lb-entry.top {
-  border-left: 3px solid var(--accent);
-}
-
-/* ─── Rank badge ─── */
-.lb-rank {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #999;
-  flex-shrink: 0;
-}
-
-.lb-rank.medal { font-size: 1.25rem; }
-
-/* ─── Name / city ─── */
-.lb-name {
   font-weight: 600;
-  font-size: 0.88rem;
-  color: var(--text-dark);
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+.lb-select:hover { background: rgba(30,81,40,0.65); }
+.lb-select option { background: var(--forest-dark); color: #fff; }
+
+/* ─── Entries ─── */
+.lb-entry {
+  max-width: 700px;
+  margin: 0 auto 0.55rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(13,31,14,0.52);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.09);
+  transition: all 0.22s ease;
+}
+.lb-entry:hover { transform: translateX(4px); border-color: rgba(255,255,255,0.18); }
+
+.lb-entry.top {
+  background: rgba(30,81,40,0.55);
+  border-color: rgba(200,255,0,0.2);
+  box-shadow: 0 4px 20px rgba(74,156,47,0.18);
+}
+.lb-entry.me {
+  background: rgba(200,255,0,0.08);
+  border-color: rgba(200,255,0,0.3);
+  box-shadow: 0 0 20px rgba(200,255,0,0.12);
 }
 
-.lb-city {
-  font-size: 0.7rem;
-  color: #aaa;
-  margin-top: 0.1rem;
+.lb-rank {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  min-width: 32px;
+  text-align: center;
 }
+.lb-rank.medal { font-size: 1.4rem; }
 
-/* ─── Score ─── */
-.lb-score {
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text-dark);
-}
+.lb-name  { font-size: 0.88rem; font-weight: 700; color: #fff; }
+.lb-city  { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.1rem; }
+.lb-score { font-size: 1.1rem; font-weight: 800; color: var(--accent); letter-spacing: -0.02em; }
+.lb-score-label { font-size: 0.62rem; color: rgba(255,255,255,0.4); font-weight: 600; }
 
-.lb-score-label {
-  font-size: 0.65rem;
-  color: #aaa;
-  text-align: right;
-}
-
-.lb-page.dark { background: #0d0d0d; }
-.lb-page.dark .lb-title    { color: #eee; }
-.lb-page.dark .lb-subtitle { color: #555; }
-.lb-page.dark .lb-entry    { background: #1a1a1a; border-color: #2a2a2a; }
-.lb-page.dark .lb-name     { color: #ddd; }
-.lb-page.dark .lb-city     { color: #555; }
-.lb-page.dark .lb-score    { color: #eee; }
-.lb-entry.me { border-left: 3px solid var(--accent); }
+.lb-inner-pad { padding: 0 1.25rem; }

@@ -52,6 +52,9 @@ def compute_monthly_summary(user_id: int, period: str) -> dict:
     ]
 
     # 🔥 INTERNAL AGGREGATION FIX
+    # Ensure co2_emission column is numeric to avoid string concatenation errors
+    df["co2_emission"] = pd.to_numeric(df["co2_emission"], errors="coerce").fillna(0)
+
     elec = round(
         float(df[df["resource_type"] == "Electricity"]["co2_emission"].sum()), 4
     )
@@ -120,7 +123,12 @@ def compute_kpis(user_id: int, period: str, household_size: int) -> list:
             (df["date"].dt.year == year) &
             (df["date"].dt.month == month)
         ]
-        return float(filtered[val_col].sum()) if val_col in filtered.columns else 0.0
+        
+        if val_col in filtered.columns:
+            # Enforce numeric conversion to prevent sum() from concatenating strings
+            numeric_vals = pd.to_numeric(filtered[val_col], errors="coerce").fillna(0)
+            return float(numeric_vals.sum())
+        return 0.0
 
     data = {
         "Electricity": {

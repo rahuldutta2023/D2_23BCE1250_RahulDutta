@@ -5,7 +5,16 @@ import {
 } from "recharts";
 import './components.css';
 
-const COLORS = ["#c8ff00", "#9acc00", "#111111", "#F59E0B", "#3B82F6", "#EF4444", "#8B5CF6"];
+const COLORS = ["#c8ff00", "#a8d55e", "#4a9c2f", "#f59e0b", "#3b82f6", "#ef4444", "#8b5cf6"];
+
+const tooltipStyle = {
+  borderRadius: 12,
+  fontSize: 12,
+  background: "rgba(14,40,18,0.92)",
+  border: "1px solid rgba(255,255,255,0.15)",
+  color: "#fff",
+  backdropFilter: "blur(12px)",
+};
 
 export default function EmissionsChart({ breakdown = [] }) {
   const [chartType, setChartType] = useState("bar");
@@ -18,6 +27,7 @@ export default function EmissionsChart({ breakdown = [] }) {
           {["bar", "pie"].map(t => (
             <button
               key={t}
+              id={`chart-type-${t}`}
               className={`chart-btn${chartType === t ? " active" : ""}`}
               onClick={() => setChartType(t)}
             >
@@ -27,12 +37,16 @@ export default function EmissionsChart({ breakdown = [] }) {
         </div>
       </div>
 
-      {chartType === "bar" ? (
+      {breakdown.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "2rem", color: "rgba(255,255,255,0.3)", fontSize: "0.85rem" }}>
+          No emission data yet
+        </div>
+      ) : chartType === "bar" ? (
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={breakdown} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-            <XAxis dataKey="resource" tick={{ fontSize: 11 }} />
-            <YAxis tick={{ fontSize: 11 }} unit=" kg" />
-            <Tooltip formatter={v => [`${v} kg`, "CO₂"]} />
+            <XAxis dataKey="resource" tick={{ fontSize: 11, fill: "rgba(255,255,255,0.5)" }} />
+            <YAxis tick={{ fontSize: 11, fill: "rgba(255,255,255,0.5)" }} unit=" kg" />
+            <Tooltip formatter={v => [`${v} kg`, "CO₂"]} contentStyle={tooltipStyle} />
             <Bar dataKey="co2_kg" radius={[6, 6, 0, 0]}>
               {breakdown.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
             </Bar>
@@ -52,8 +66,8 @@ export default function EmissionsChart({ breakdown = [] }) {
             >
               {breakdown.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
             </Pie>
-            <Legend />
-            <Tooltip formatter={v => [`${v} kg`, "CO₂"]} />
+            <Legend formatter={v => <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 12 }}>{v}</span>} />
+            <Tooltip formatter={v => [`${v} kg`, "CO₂"]} contentStyle={tooltipStyle} />
           </PieChart>
         </ResponsiveContainer>
       )}

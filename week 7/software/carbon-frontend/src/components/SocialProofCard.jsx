@@ -1,6 +1,8 @@
+import { useLang } from "../i18n";
 import './components.css';
 
 export default function SocialProofCard({ data }) {
+  const { t } = useLang();
   if (!data) return null;
   const { peer_avg_co2, user_percentile, vs_avg_kg, message, city, peer_count, household_bucket } = data;
   const better  = vs_avg_kg <= 0;
@@ -9,18 +11,18 @@ export default function SocialProofCard({ data }) {
 
   return (
     <div className="c-card">
-      <p className="c-card-title">👥 Vs. City Peers</p>
+      <p className="c-card-title">👥 {t("vsPeers")}</p>
 
       <div className={`proof-banner ${better ? "good" : "bad"}`}>{message}</div>
       <p className="proof-meta">
-        {peer_count} households · {city} · {household_bucket} members
+        {peer_count} {t("households")} · {city} · {household_bucket} {t("members")}
       </p>
 
       {/* City average bar */}
-      <div style={{ marginBottom: "0.75rem" }}>
+      <div style={{ marginBottom: "0.9rem" }}>
         <div className="cmp-label-row">
-          <span>City Average</span>
-          <span>{peer_avg_co2} kg CO₂</span>
+          <span>{t("cityAvg")}</span>
+          <span>{peer_avg_co2.toFixed(1)} kg CO₂</span>
         </div>
         <div className="cmp-bar-track">
           <div
@@ -31,9 +33,9 @@ export default function SocialProofCard({ data }) {
       </div>
 
       {/* User bar */}
-      <div>
+      <div style={{ marginBottom: "0.2rem" }}>
         <div className="cmp-label-row">
-          <span>You</span>
+          <span>{t("you")}</span>
           <span>{userCo2.toFixed(1)} kg CO₂</span>
         </div>
         <div className="cmp-bar-track">
@@ -45,7 +47,7 @@ export default function SocialProofCard({ data }) {
       </div>
 
       <p className="proof-percentile">
-        You emit less than <strong>{user_percentile}%</strong> of your peers
+        {t("emitLess")} <strong>{user_percentile}%</strong> {t("ofPeers")}
       </p>
     </div>
   );

@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useLang, LANGUAGES } from "../i18n";
 import '../pages/auth.css';
 
 const API = "http://localhost:8000/api";
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, onRegister }) {
+  const { lang, changeLang, t } = useLang();
   const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
   const [error,    setError]    = useState("");
@@ -25,7 +27,7 @@ export default function Login({ onLogin }) {
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.detail || "Login failed");
+        throw new Error(err.detail || t("loginFailed"));
       }
 
       const data = await res.json();
@@ -43,47 +45,61 @@ export default function Login({ onLogin }) {
     <div className="auth-bg">
       <div className="auth-card">
 
+        {/* Language switcher */}
+        <div className="auth-lang">
+          <select value={lang} onChange={e => changeLang(e.target.value)} id="login-lang-select">
+            {Object.entries(LANGUAGES).map(([code, info]) => (
+              <option key={code} value={code}>{info.flag} {info.name}</option>
+            ))}
+          </select>
+        </div>
+
         <div className="auth-logo">
           <div className="auth-logo-icon">🌿</div>
-          <h1>CarbonTrack</h1>
-          <p>Smart Carbon Footprint Tracker</p>
+          <h1>{t("appName")}</h1>
+          <p>{t("appTagline")}</p>
         </div>
 
         {error && <div className="auth-error">{error}</div>}
 
         <div className="auth-space">
           <div>
-            <label className="auth-label">Email</label>
+            <label className="auth-label">{t("email")}</label>
             <input
+              id="login-email"
               className="auth-input"
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && handleSubmit()}
               placeholder="you@example.com"
             />
           </div>
           <div>
-            <label className="auth-label">Password</label>
+            <label className="auth-label">{t("password")}</label>
             <input
+              id="login-password"
               className="auth-input"
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && handleSubmit()}
               placeholder="••••••••"
             />
           </div>
           <button
+            id="login-submit"
             className="auth-btn"
             onClick={handleSubmit}
             disabled={loading || !email || !password}
           >
-            {loading ? "Signing in…" : "Sign In"}
+            {loading ? t("signingIn") : t("signIn")}
           </button>
         </div>
 
         <p className="auth-footer">
-          Don't have an account?{" "}
-          <button onClick={() => window.location.hash = "register"}>Register</button>
+          {t("noAccount")}{" "}
+          <button id="login-go-register" onClick={onRegister}>{t("register")}</button>
         </p>
       </div>
     </div>

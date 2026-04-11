@@ -1,130 +1,131 @@
 .pred-page {
   min-height: 100vh;
-  background: var(--bg-page);
   padding-bottom: 80px;
-  transition: background 0.2s;
 }
-.pred-page.dark { background: #0d0d0d; color: #eee; }
 
 .pred-inner {
   max-width: 900px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1.25rem;
+  animation: fadeUp 0.3s ease;
 }
 
 .pred-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.04em;
 }
-.pred-page.dark .pred-title { color: #eee; }
 
 .pred-sub {
-  font-size: 0.78rem;
-  color: #999;
+  font-size: 0.8rem;
+  color: var(--forest-lime);
   margin-top: 0.2rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
 }
 
-/* Hero card */
+/* ─── Hero card ─── */
 .pred-hero {
-  background: #fff;
-  border: 1.5px solid var(--border-light);
+  background: rgba(13,31,14,0.60);
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  border: 1.5px solid rgba(255,255,255,0.14);
   border-radius: var(--radius);
-  padding: 1.4rem;
+  padding: 1.5rem;
   display: flex;
-  gap: 1rem;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
-  transition: background 0.2s;
 }
-.pred-page.dark .pred-hero { background: #1a1a1a; border-color: #2a2a2a; }
 
-.pred-hero-label { font-size: 0.7rem; color: #999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
-.pred-hero-value { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; margin: 0.2rem 0; }
-.pred-hero-msg   { font-size: 0.82rem; color: #666; max-width: 320px; line-height: 1.45; }
-.pred-page.dark .pred-hero-value { color: #eee; }
-.pred-page.dark .pred-hero-msg   { color: #666; }
+.pred-hero-left { flex: 1; min-width: 180px; }
+.pred-hero-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 600; margin-bottom: 0.4rem; }
+.pred-hero-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: #fff;
+  line-height: 1.1;
+}
+.pred-hero-msg { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem; line-height: 1.45; }
 
-.pred-hero-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
-
+.pred-hero-right { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-end; }
 .pred-trend-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.9rem;
-  border-radius: 30px;
+  gap: 0.45rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  font-size: 0.85rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
 }
-.pred-pct { font-size: 0.78rem; opacity: 0.7; }
+.pred-pct { font-size: 1rem; font-weight: 800; }
+.pred-confidence { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 600; }
+.pred-weekly     { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
 
-.pred-confidence { font-size: 0.72rem; color: #999; }
-.pred-weekly     { font-size: 0.72rem; color: #999; }
-
-/* Chart card */
+/* ─── Chart card ─── */
 .pred-chart-card {
-  background: #fff;
-  border: 1px solid var(--border-light);
+  background: rgba(13,31,14,0.60);
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: var(--radius);
-  padding: 1.2rem;
-  margin-bottom: 0.75rem;
-  transition: background 0.2s;
-}
-.pred-page.dark .pred-chart-card { background: #1a1a1a; border-color: #2a2a2a; }
-
-.pred-section-title {
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: #999;
+  padding: 1.3rem;
   margin-bottom: 1rem;
 }
 
-/* Resource grid */
-.pred-resources {
-  background: #fff;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius);
-  padding: 1.2rem;
-  margin-bottom: 0.75rem;
-  transition: background 0.2s;
+.pred-section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--forest-lime);
+  margin-bottom: 1rem;
+  opacity: 0.9;
 }
-.pred-page.dark .pred-resources { background: #1a1a1a; border-color: #2a2a2a; }
+
+/* ─── Resource predictions ─── */
+.pred-resources {
+  background: rgba(13,31,14,0.60);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  margin-bottom: 1rem;
+}
 
 .pred-resource-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
+  gap: 0.7rem;
 }
-@media (min-width: 600px) { .pred-resource-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 480px) { .pred-resource-grid { grid-template-columns: 1fr; } }
 
 .pred-resource-card {
-  background: #fafaf8;
+  background: rgba(255,255,255,0.05);
   border-radius: 10px;
   padding: 0.85rem 1rem;
-  transition: background 0.2s;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.2s;
 }
-.pred-page.dark .pred-resource-card { background: #111; }
+.pred-resource-card:hover { transform: translateY(-2px); }
+.pred-resource-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 600; margin-bottom: 0.3rem; }
+.pred-resource-value { font-size: 1.2rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.pred-resource-trend { font-size: 0.72rem; font-weight: 700; margin-top: 0.2rem; }
 
-.pred-resource-label { font-size: 0.7rem; color: #999; font-weight: 600; margin-bottom: 0.3rem; }
-.pred-resource-value { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
-.pred-resource-trend { font-size: 0.7rem; font-weight: 600; margin-top: 0.2rem; }
-.pred-page.dark .pred-resource-value { color: #ddd; }
-
-/* Empty state */
+/* ─── Empty state ─── */
 .pred-empty {
-  background: #fff;
-  border: 1px solid var(--border-light);
+  background: rgba(255,255,255,0.05);
+  border: 1px dashed rgba(255,255,255,0.18);
   border-radius: var(--radius);
   padding: 2rem;
   text-align: center;
-  color: #999;
-  font-size: 0.9rem;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.88rem;
   line-height: 1.6;
-  transition: background 0.2s;
 }
-.pred-page.dark .pred-empty { background: #1a1a1a; border-color: #2a2a2a; }

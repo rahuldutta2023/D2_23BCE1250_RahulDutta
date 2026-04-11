@@ -1,17 +1,19 @@
 import { useState } from "react";
+import { useLang } from "../i18n";
 import './components.css';
 
-function StatusBadge({ status }) {
+function StatusBadge({ status, t }) {
   const map = {
-    ON_TRACK: { cls: "badge-on-track", label: "On Track ✅" },
-    WARNING:  { cls: "badge-warning",  label: "Warning ⚠️" },
-    EXCEEDED: { cls: "badge-exceeded", label: "Exceeded 🚨" },
+    ON_TRACK: { cls: "badge-on-track", label: t("onTrack") + " ✅" },
+    WARNING:  { cls: "badge-warning",  label: t("warning") + " ⚠️" },
+    EXCEEDED: { cls: "badge-exceeded", label: t("exceeded") + " 🚨" },
   };
   const s = map[status] || map.ON_TRACK;
   return <span className={`status-badge ${s.cls}`}>{s.label}</span>;
 }
 
 export default function GoalCard({ goal, onSetGoal }) {
+  const { t } = useLang();
   const [budget, setBudget] = useState("");
   const [saving, setSaving] = useState(false);
 
@@ -25,12 +27,13 @@ export default function GoalCard({ goal, onSetGoal }) {
 
   if (!goal) return (
     <div className="c-card">
-      <p className="c-card-title">🎯 Set Carbon Budget</p>
-      <p style={{ fontSize: "0.78rem", color: "#888", marginBottom: "0.85rem" }}>
-        Set a monthly CO₂ target and get real-time alerts.
+      <p className="c-card-title">🎯 {t("setCarbonBudget")}</p>
+      <p style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.45)", marginBottom: "0.85rem", lineHeight: "1.4" }}>
+        {t("setBudgetDesc")}
       </p>
       <div className="goal-input-row">
         <input
+          id="set-budget-input"
           className="goal-input"
           type="number"
           placeholder="e.g. 200 kg"
@@ -38,11 +41,12 @@ export default function GoalCard({ goal, onSetGoal }) {
           onChange={e => setBudget(e.target.value)}
         />
         <button
+          id="btn-set-budget"
           className="btn-set-goal"
           onClick={handleSave}
           disabled={saving || !budget}
         >
-          {saving ? "…" : "Set Goal"}
+          {saving ? "…" : t("setGoal")}
         </button>
       </div>
     </div>
@@ -55,25 +59,25 @@ export default function GoalCard({ goal, onSetGoal }) {
 
   return (
     <div className="c-card">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.7rem" }}>
-        <p className="c-card-title" style={{ margin: 0 }}>🎯 Carbon Budget</p>
-        <StatusBadge status={goal.status} />
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.8rem" }}>
+        <p className="c-card-title" style={{ margin: 0 }}>🎯 {t("carbonBudget")}</p>
+        <StatusBadge status={goal.status} t={t} />
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.72rem", color: "#999", marginBottom: "0.25rem" }}>
-        <span>{goal.current_co2_kg} kg used</span>
-        <span>{goal.monthly_budget_kg} kg budget</span>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.72rem", color: "rgba(255,255,255,0.4)", marginBottom: "0.35rem", fontWeight: 600 }}>
+        <span>{goal.current_co2_kg.toFixed(1)} kg {t("used")}</span>
+        <span>{goal.monthly_budget_kg} kg {t("budget")}</span>
       </div>
 
       <div className="prog-track">
         <div className={`prog-fill ${fillCls}`} style={{ width: `${pct}%` }} />
       </div>
 
-      <p style={{ fontSize: "0.78rem", color: "#555", fontWeight: 600, marginBottom: "0.3rem" }}>
+      <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.7)", fontWeight: 600, margin: "0.6rem 0 0.4rem", lineHeight: "1.4" }}>
         {goal.alert_message}
       </p>
-      <p style={{ fontSize: "0.72rem", color: "#aaa" }}>
-        Projected: <strong style={{ color: "#555" }}>{goal.projected_co2_kg} kg</strong> · {goal.days_remaining} days remaining
+      <p style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.35)" }}>
+        {t("projected")}: <strong style={{ color: "rgba(255,255,255,0.6)" }}>{goal.projected_co2_kg.toFixed(1)} kg</strong> · {goal.days_remaining} {t("daysRemaining")}
       </p>
     </div>
   );
