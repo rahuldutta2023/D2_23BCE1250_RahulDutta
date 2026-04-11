@@ -15,3 +15,11 @@ notification_id,user_id,type,title,message,severity,is_read,created_at
 14,1,badge_earned,🏅 Badge Unlocked: 📊 Data Logger,Logged data for 3+ consecutive months,success,True,2026-04-11T18:36:11.345459
 15,1,badge_earned,🏅 Badge Unlocked: 💧 Water Saver,Water emissions within baseline,success,True,2026-04-11T18:36:11.353678
 16,1,badge_earned,🏅 Badge Unlocked: 🔋 Energy Guardian,Electricity emissions within baseline,success,False,2026-04-11T18:36:11.356226
+17,77,badge_earned,🏅 Badge Unlocked: 🌱 Eco Beginner,Logged your first consumption entry,success,False,2026-04-11T23:19:31.295107
+18,77,badge_earned,🏅 Badge Unlocked: 🌍 Green Champion,All KPIs within budget for a month,success,False,2026-04-11T23:19:31.311050
+19,77,badge_earned,🏅 Badge Unlocked: ✂️ Carbon Cutter,Reduced total emissions month-over-month,success,False,2026-04-11T23:19:31.311050
+20,77,badge_earned,🏅 Badge Unlocked: 🏆 Eco Elite,Earned 500+ eco-points,success,False,2026-04-11T23:19:31.326982
+21,77,badge_earned,🏅 Badge Unlocked: ⭐ Community Star,Ranked top 25 in your city leaderboard,success,False,2026-04-11T23:19:31.329334
+22,77,badge_earned,🏅 Badge Unlocked: 📊 Data Logger,Logged data for 3+ consecutive months,success,False,2026-04-11T23:19:31.329334
+23,77,badge_earned,🏅 Badge Unlocked: 💧 Water Saver,Water emissions within baseline,success,False,2026-04-11T23:19:31.329334
+24,77,badge_earned,🏅 Badge Unlocked: 🔋 Energy Guardian,Electricity emissions within baseline,success,False,2026-04-11T23:19:31.345872
